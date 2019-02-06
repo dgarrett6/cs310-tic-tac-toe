@@ -26,27 +26,27 @@ public class TicTacToeView {
         int row;
         int col;
 
+        System.out.println("Enter the row and column numbers, separated by a space:");
+
         if(isXTurn){
-            System.out.print("Player one (x), make your move:");
+            System.out.println("Player one (x), make your move:");
             row=Integer.parseInt(keyboard.next());
             col=Integer.parseInt(keyboard.next());
             TicTacToeMove turn = new TicTacToeMove(row,col);
             return turn;
         }
-        else{
-            System.out.print("Player two (O), make your move");
-            row=Integer.parseInt(keyboard.next());
-            col=Integer.parseInt(keyboard.next());
-            TicTacToeMove turn = new TicTacToeMove(row,col);
-            return turn;
-        }
-        System.out.print("Enter the row and column numbers, separated by a space:");
-
-    }
-
-    public void showInputError() {
         
+        else{
+            System.out.println("Player two (O), make your move");
+            row=Integer.parseInt(keyboard.next());
+            col=Integer.parseInt(keyboard.next());
+            TicTacToeMove turn = new TicTacToeMove(row,col);
+            return turn;
+        }
+        
+
     }
+
 
     public void showInputError() {
 

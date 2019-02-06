@@ -79,7 +79,7 @@ public class TicTacToeModel {
 
 		for(int i = 0; i < width; ++i){
 			for(int j = 0; j < width; ++j){
-				grid[i][j] = Mark.EMPTY;
+				board[i][j] = Mark.EMPTY;
             }
         }
         
@@ -132,10 +132,6 @@ public class TicTacToeModel {
         
     }
 	
-private boolean isSquareMarked(int row, int col) {
-      
-        
-    }
 	
     private boolean isSquareMarked(int row, int col) {
         
@@ -143,7 +139,7 @@ private boolean isSquareMarked(int row, int col) {
         
         // INSERT YOUR CODE HERE
 
-         if(grid[row][col] == Mark.EMPTY ){
+         if(board[row][col] == Mark.EMPTY ){
             return false;
         }
         else{
@@ -152,10 +148,7 @@ private boolean isSquareMarked(int row, int col) {
         
     }
 	
-public Mark getMark(int row, int col) {
-    
-            
-    }
+
 	
     public Mark getMark(int row, int col) {
         
@@ -163,7 +156,7 @@ public Mark getMark(int row, int col) {
         
         // INSERT YOUR CODE HERE
 
-        Mark zone = grid[row][col];
+        Mark zone = board[row][col];
         return zone;
       
     }
@@ -195,76 +188,75 @@ public Mark getMark(int row, int col) {
       
         
 	
-    private boolean isMarkWin(Mark mark) {
+private boolean isMarkWin(Mark mark) {
         
         /* Check the squares of the board to see if the specified mark is the
            winner */
         
-        // INSERT YOUR CODE HERE
+        //Vertical
+        int counter = 0; 
 
-              //Vertical
+        for(int i = 0; i < width; i++){
+         counter = 0;
+         for(int j = 0; j < width; j++){
+             if(getMark(i,j) == mark){
+                 counter++;
+             }
+         }
 
-           int counter = 0; 
-           for(int a = 0; a < width; a++){
-            counter = 0;
-            for(int b = 0; b < width; b++){
-                if(getMark(a,b) == mark){
-                    counter++;
-                }
-            }
-            if(counter == width){
-                return true;
-            }
-        }
-            //Horizontal
+         if(counter == width){
+             return true;
+         }
+     }
+         //Horizontal
+         for(int h = 0; h < width; h++){
+             counter = 0;
+             for(int z = 0; z < width; z++){
+                 if(getMark(z,h) == mark){
+                     counter++;
+                 }
+                 if(counter == width){
+                     return true;
+                 }
+             }
+         }
 
-            for(int c = 0; c < width; c++){
-                counter = 0;
-                for(int d = 0; d < width; d++){
-                    if(getMark(d,c) == mark){
-                        counter++;
-                    }
-                    if(counter == width){
-                        return true;
-                    }
-                }
-            }
+         //Diagonal 1
+         counter = 0;
+         for(int n = 0; n < width; n++){
+             if(getMark(n,n) == mark){
+                 counter++;
+             }
+         }
 
-            //Diagonal 1
+         if(counter == width){
+             return true;
+         }
 
-            counter = 0;
-            for(int e = 0; e < width; e++){
-                if(getMark(e,e) == mark){
-                    counter++;
-                }
-            }
-            if(counter == width){
-                return true;
-            }
-            //Diagonal 2
+         //Diagonal 2
+         counter = 0;
+         for(int p = 0; p < width; p++){
+             if(getMark(p,width-p-1) == mark){
+                 counter++;
+             }
+         }
 
-            counter = 0;
-            for(int f = 0; f < width; f++){
-                if(getMark(width-f-1,f) == mark){
-                    counter++;
-                }
-            }
-            if(counter == width){
-                return true;
-            }
-        return false;
+         if(counter == width){
+             return true;
+         }
+        
+         return false;
+
+         
+
     }
-}
-	
+
     private boolean isTie() {
-        
-        /* Check the squares of the board to see if the game is a tie */
-        
-        // INSERT YOUR CODE HERE
-        
-          if (isMarkWin(Mark.X) || isMarkWin(Mark.O)) {
+
+        if (isMarkWin(Mark.X)|| isMarkWin(Mark.O)){
             return false;
-        } 
+        }
+
         for (int i = 0; i < width; i++) {
             for(int j = 0;j < width; j++) {
                 if (getMark(i,j) == Mark.EMPTY) {
@@ -272,10 +264,8 @@ public Mark getMark(int row, int col) {
                 }
             }
         }
-
         return true;
     }
-
 
     public boolean isGameover() {
         
@@ -307,23 +297,22 @@ public Mark getMark(int row, int col) {
         StringBuilder output = new StringBuilder("  ");
         
         /* Output the board contents as a string (see examples) */
-        
-        // INSERT YOUR CODE HERE
-        
-        for(int i = 0; i < width; i++){
-             output.append(i);
-         } 
-       
-        for(int j = 0; j < width; j++){
-        output.append("\n"); 
-        output.append(j + " "); 
-        
-        for(int k = 0; k < width; k++){ 
-            output.append(board[j][k]); 
+        for(int i = 0; i < width; ++i){
+            output.append(i);
+        }
+
+        for(int j = 0; j < width; ++j){
+            output.append("\n");
+            output.append(j + " ");
+
+            
+            for(int z = 0; z < width; ++z){
+                output.append(board[j][z]);                
+            }
         } 
-    } 
-        output.append("\n"); 
-        return output.toString();       
+        output.append("\n");
+        return output.toString();
+        
     }
     
 }

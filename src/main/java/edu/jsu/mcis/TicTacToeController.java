@@ -27,6 +27,22 @@ public class TicTacToeController {
 
         // INSERT YOUR CODE HERE
 
+        int inputa;
+        int inputb; 
+        boolean valid = false;
+        String[] input = new String[2];
+        while(valid == false){
+            String nums = keyboard.nextLine();
+            input = nums.split(" ");
+            inputa = Integer.parseInt(input[0]);
+            inputb = Integer.parseInt(input[1]);
+            valid = model.makeMark(inputa, inputb);
+        }
+        if(valid == false){
+            view.showInputError();
+        }
+        valid = false;
+        
     }
 
 }

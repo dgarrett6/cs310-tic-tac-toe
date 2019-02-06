@@ -23,8 +23,9 @@ public class TicTacToeView {
         
         // INSERT YOUR CODE HERE
 
-        return null; // remove this line later!
-
+       
+    public void showInputError() {
+        
     }
 
     public void showInputError() {

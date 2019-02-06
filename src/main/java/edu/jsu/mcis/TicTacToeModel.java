@@ -76,6 +76,12 @@ public class TicTacToeModel {
         /* Initialize board by filling every square with empty marks */
         
         // INSERT YOUR CODE HERE
+
+		for(int i = 0; i < width; ++i){
+			for(int j = 0; j < width; ++j){
+				grid[i][j] = Mark.EMPTY;
+            }
+        }
         
     }
 	
@@ -88,10 +94,28 @@ public class TicTacToeModel {
            other player before returning TRUE.  Otherwise, return FALSE. */
         
         // INSERT YOUR CODE HERE
+
+         boolean test = false;
+        if(isValidSquare(row, col)){
+            if(!isSquareMarked(row, col)){
+                if(xTurn){
+                    board[row][col] = Mark.X;
+                    
+                }
+                else{
+                    board[row][col] = Mark.O;
+                     
+                }
+                xTurn = !xTurn;
+                test = true;
+            }
+            return test;
+        }
         
-        return false; // remove this line later!
-        
-    }
+        return false;
+               
+    }     
+    
 	
     private boolean isValidSquare(int row, int col) {
         
@@ -99,7 +123,17 @@ public class TicTacToeModel {
         
         // INSERT YOUR CODE HERE
 
-        return false; // remove this line later!
+          if((row < width) && (row >= 0) && (col < width) && (col >= 0) ){
+         return true;
+        }
+        else{
+            return false;
+        }
+        
+    }
+	
+private boolean isSquareMarked(int row, int col) {
+      
         
     }
 	
@@ -109,7 +143,17 @@ public class TicTacToeModel {
         
         // INSERT YOUR CODE HERE
 
-        return false; // remove this line later!
+         if(grid[row][col] == Mark.EMPTY ){
+            return false;
+        }
+        else{
+            return true;
+        }
+        
+    }
+	
+public Mark getMark(int row, int col) {
+    
             
     }
 	
@@ -119,10 +163,12 @@ public class TicTacToeModel {
         
         // INSERT YOUR CODE HERE
 
-        return null; // remove this line later!
-            
+        Mark zone = grid[row][col];
+        return zone;
+      
     }
 	
+        
     public Result getResult() {
         
         /* Call "isMarkWin()" to see if X or O is the winner, if the game is a
@@ -131,9 +177,23 @@ public class TicTacToeModel {
         
         // INSERT YOUR CODE HERE
 
-        return null; // remove this line later!
+         if(isMarkWin(Mark.X)){
+            return Result.X;
+        }
+        else if(isMarkWin(Mark.O)){
+            return Result.O;
+        }
+        else if(isTie()){
+            return Result.TIE;
+        }
+        else{
+            return Result.NONE;
+        }
         
+
     }
+      
+        
 	
     private boolean isMarkWin(Mark mark) {
         
@@ -142,19 +202,80 @@ public class TicTacToeModel {
         
         // INSERT YOUR CODE HERE
 
-        return false; // remove this line later!
+              //Vertical
 
+           int counter = 0; 
+           for(int a = 0; a < width; a++){
+            counter = 0;
+            for(int b = 0; b < width; b++){
+                if(getMark(a,b) == mark){
+                    counter++;
+                }
+            }
+            if(counter == width){
+                return true;
+            }
+        }
+            //Horizontal
+
+            for(int c = 0; c < width; c++){
+                counter = 0;
+                for(int d = 0; d < width; d++){
+                    if(getMark(d,c) == mark){
+                        counter++;
+                    }
+                    if(counter == width){
+                        return true;
+                    }
+                }
+            }
+
+            //Diagonal 1
+
+            counter = 0;
+            for(int e = 0; e < width; e++){
+                if(getMark(e,e) == mark){
+                    counter++;
+                }
+            }
+            if(counter == width){
+                return true;
+            }
+            //Diagonal 2
+
+            counter = 0;
+            for(int f = 0; f < width; f++){
+                if(getMark(width-f-1,f) == mark){
+                    counter++;
+                }
+            }
+            if(counter == width){
+                return true;
+            }
+        return false;
     }
+}
 	
     private boolean isTie() {
         
         /* Check the squares of the board to see if the game is a tie */
         
         // INSERT YOUR CODE HERE
-
-        return false; // remove this line later!
         
+          if (isMarkWin(Mark.X) || isMarkWin(Mark.O)) {
+            return false;
+        } 
+        for (int i = 0; i < width; i++) {
+            for(int j = 0;j < width; j++) {
+                if (getMark(i,j) == Mark.EMPTY) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
+
 
     public boolean isGameover() {
         
@@ -189,8 +310,20 @@ public class TicTacToeModel {
         
         // INSERT YOUR CODE HERE
         
-        return output.toString();
+        for(int i = 0; i < width; i++){
+             output.append(i);
+         } 
+       
+        for(int j = 0; j < width; j++){
+        output.append("\n"); 
+        output.append(j + " "); 
         
+        for(int k = 0; k < width; k++){ 
+            output.append(board[j][k]); 
+        } 
+    } 
+        output.append("\n"); 
+        return output.toString();       
     }
     
 }
